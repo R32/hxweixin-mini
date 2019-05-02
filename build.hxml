@@ -1,0 +1,6 @@
+-cp src
+-main test.WxMini
+-D keep-wx-deprecated
+-D analyzer-optimize
+-D old-error-format
+-js bin/app.js

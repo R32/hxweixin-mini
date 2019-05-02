@@ -1,0 +1,11 @@
+bin/
+dump/
+.git
+node_modules
+*.orig
+.svn
+.hg
+DS_Store
+*.orig
+.idea
+ide.hxml
