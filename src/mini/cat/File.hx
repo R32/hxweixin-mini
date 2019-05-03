@@ -7,7 +7,7 @@ import mini.Data;
 */
 @:native("wx")
 extern class File {
-
+#if (!mini_game)
 	static function saveFile(obj:SFC<{savedFilePath:String}> & {tempFilePath:String}):Void;
 
 	static function removeSavedFile(obj:SFC<ErrMsg> & {filePath:String}):Void;
@@ -19,7 +19,7 @@ extern class File {
 	static function getSavedFileInfo(obj:SFC<{size:Int, createTime:Float}> & {filePath:String}):Void;
 
 	static function getFileInfo(obj:SFC<{size:Int, digest:String}> & {filePath:String, ?digestAlgorithm:DigestAlgorithm}):Void;
-
+#end
 	static function getFileSystemManager():FileSystemManager;
 }
 

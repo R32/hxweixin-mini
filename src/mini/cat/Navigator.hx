@@ -5,6 +5,7 @@ import mini.Data;
 /**
  https://developers.weixin.qq.com/miniprogram/dev/api/wx.switchTab.html
 */
+@:require(!mini_game)
 @:native("wx")
 extern class Navigator {
 	// 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面

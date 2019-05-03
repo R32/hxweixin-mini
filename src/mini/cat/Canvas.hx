@@ -4,11 +4,54 @@ import mini.Data;
 import haxe.Constraints.Function;
 
 /**
- https://developers.weixin.qq.com/miniprogram/dev/api/CanvasContext.html
+ program: https://developers.weixin.qq.com/miniprogram/dev/api/CanvasContext.html
+ game:    https://developers.weixin.qq.com/minigame/dev/api/wx.createCanvas.html
 */
-@:native("wx")
 extern class Canvas {
+#if mini_game
+	var width: Int;
+	var height: Int;
+	function toTempFilePath(obj:SFC<{tempFilePath:String}> & RectFile):Void;
+	function toTempFilePathSync(?obj: RectFile):String;
+	function toDataURL():String;
 
+	// [_2d=>js.html.CanvasRenderingContext2D, webgl=>js.html.webgl.WebGLRenderingContext]
+	function getContext(type:ContextType, ?attr:ContextAttributes):Dynamic;
+	static function createCanvas():Canvas;
+#else
+	static function createCanvasContext(id:String, ?thiz:Dynamic):CanvasContext;
+
+	@:native("canvasToTempFilePath") static function toTempFilePath(obj:SFC<{
+		tempFilePath: String,
+	}> & RectFile & {
+		canvasId: String,
+	}, ?thiz:Dynamic):Void;
+
+	@:native("canvasPutImageData") static function putImageData(obj:SFC<ErrMsg> & {
+		canvasId: String,
+		data: js.lib.Uint8ClampedArray,  // rgba
+		?x: Float,
+		?y: Float,
+		?width: Float,
+		?height: Float,
+	}, ?thiz:Dynamic):Void;
+
+	@:native("canvasGetImageData") static function getImageData(obj:SFC<{
+		width: Float,
+		height: Float,
+		data: js.lib.Uint8ClampedArray,
+	}> & {
+		canvasId: String,
+		x: Float,
+		y: Float,
+		width: Float,
+		height: Float,
+	}, ?thiz:Dynamic):Void;
+#end
+}
+
+@:require(!mini_game)
+extern class CanvasContext {
 	var fillStyle: Color;    // color string
 	var strokeStyle: Color;
 	var shadowOffsetX: Float;
@@ -32,7 +75,7 @@ extern class Canvas {
 
 	function createPattern(src:String, repeat:Repetition):Color;
 
-	function measureText(text:String):{width:Int};
+	function measureText(text:String):{width:Float};
 
 	function save():Void;
 
@@ -103,42 +146,17 @@ extern class Canvas {
 	function setMiterLimit(n:Float):Void;
 	function setFontSize(size:Float):Void;
 	#end
-	@:native("createCanvasContext") static function create(id:String, ?thiz:Dynamic):Canvas;
+}
 
-	@:native("canvasToTempFilePath") static function toTempFilePath(obj:SFC<{
-		tempFilePath: String,
-	}> & {
-		canvasId: String,
-		?fileType: FileType,
-		?quality: Float,
-		?x: Int,
-		?y: Int,
-		?width: Int,
-		?height: Int,
-		?destWidth: Int,
-		?destHeight: Int,
-	}, ?thiz:Dynamic):Void;
-
-	@:native("canvasPutImageData") static function putImageData(obj:SFC<ErrMsg> & {
-		canvasId: String,
-		data: js.lib.Uint8ClampedArray,  // rgba
-		?x: Int,
-		?y: Int,
-		?width: Int,
-		?height: Int,
-	}, ?thiz:Dynamic):Void;
-
-	@:native("canvasGetImageData") static function getImageData(obj:SFC<{
-		width: Int,
-		height: Int,
-		data: js.lib.Uint8ClampedArray,
-	}> & {
-		canvasId: String,
-		x: Int,
-		y: Int,
-		width: Int,
-		height: Int,
-	}, ?thiz:Dynamic):Void;
+private typedef RectFile = {
+	?x: Float,
+	?y: Float,
+	?width: Float,
+	?height: Float,
+	?destWidth: Float,
+	?destHeight: Float,
+	?fileType: FileType,
+	?quality: Float,
 }
 
 private extern class Pattern {}
@@ -149,10 +167,15 @@ extern class CanvasGradient {
 	function addColorStop(stop:Float, color:String):Void;
 }
 
-private enum abstract Align(String) {
-	var left;
-	var center;
-	var right;
+private typedef ContextAttributes = {
+	?antialias: Bool,
+	?preserveDrawingBuffer: Bool,
+	?antialiasSamples: Float,
+}
+
+private enum abstract ContextType(String) {
+	var _2d = "2d";
+	var webgl;
 }
 
 private enum abstract FileType(String) {

@@ -9,6 +9,7 @@ private typedef FloatOrString = haxe.extern.EitherType<Float,String>;
 /**
  https://developers.weixin.qq.com/miniprogram/dev/api/wx.createAnimation.html
 */
+@:require(!mini_game)
 @:native("wx")
 extern class Animation {
 	function top(v:FloatOrString):Animation;

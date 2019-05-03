@@ -1,44 +1,48 @@
 package mini;
 
 import mini.Data;
-
+import haxe.Constraints.Function;
 /**
 * https://developers.weixin.qq.com/miniprogram/dev/api/
 */
 @:native("wx")
 extern class WX {
 
+#if mini_game
+	// 用户信息 2
+	static function createUserInfoButton(opt:ButtonOptions & {withCredentials:Bool, ?lang:Lang}):UserInfoButton;
+	// 设置 2
+	static function createOpenSettingButton(opt:ButtonOptions):OpenSettingButton;
+	// 意见反馈
+	static function createFeedbackButton(opt:ButtonOptions):FeedbackButton;
+	// 游戏圈
+	static function createGameClubButton(opt:ButtonOptions & {icon:String}):GameClubButton;
+
+	// 开放数据,开放数据域 -> mini.game.OpenDataContext
+
+	// 防沉迷
+	static  function checkIsUserAdvisedToRest(obj:SFC<{result:Bool}> & {todayPlayedTime:Float}):Void;
+
+	// 客服消息
+	static function openCustomerServiceConversation(obj:SFC<ErrMsg> & {
+		?sessionFrom: String,
+		?showMessageCard: Bool,
+		?sendMessageTitle: String,
+		?sendMessagePath: String,
+		?sendMessageImg: String,
+	}):Void;
+#else
+	// 基础
 	static function canIUse(schema:String):Bool;
 
-	//// 开放接口
-	static function login(obj:SFC<{code:String}> & {?timeout:Float}):Void;
-
-	static function checkSession(obj:SFC<ErrMsg>):Void;
-
-	static function navigateToMiniProgram(obj:SFC<ErrMsg> & {
-		appId: String,
-		?path: String,
-		?extraData: QueryData,
-		?envVersion: EnvVersion,
-	}):Void;
-
+	// 小程序跳转 2
 	static function navigateBackMiniProgram(obj:SFC<ErrMsg> & {?extraData:QueryData}):Void;
+
+	// 收货地址
+	static function chooseAddress(obj:SFC<Address>):Void;
 
 	// 账号信息
 	static function getAccountInfoSync():AccountInfo;
-
-	// 用户信息
-	static function getUserInfo(obj:SFC<{
-		userInfo: UserInfo,
-		rawData: String,
-		signature: String,
-		encryptedData: String,
-		iv: String,
-		errMsg:String,
-	}> & {
-		?withCredentials: Bool,
-		?lang: Lang,
-	}):Void;
 
 	// 数据上报
 	static function reportMonitor(name:String, id:Int):Void;
@@ -54,28 +58,14 @@ extern class WX {
 		paySign: String,
 	}):Void;
 
-	static function authorize(obj:SFC<ErrMsg> & {scope:String}):Void;
-
-	static function openSetting(obj:SFC<{authSetting:haxe.DynamicAccess<Bool>}>):Void;
-
-	static function getSetting(obj:SFC<{authSetting:haxe.DynamicAccess<Bool>}>):Void;
-
-	static function chooseAddress(obj:SFC<Address>):Void;
-
-	static function openCard(obj:SFC<ErrMsg> & {cardList:Array<{cardId:String,code:String}>}):Void;
-
-	static function addCard(obj:SFC<{
-		cardList: Array<{code:String, cardId:String, cardExt:String, isSuccess:Bool}>
-	}> & {
-		cardList:Array <{cardId:String, cardExt:CardExt}>
-	}):Void;
-
+	// 发票
 	static function chooseInvoiceTitle(obj:SFC<InvoiceTitle>):Void;
 
 	static function chooseInvoice(obj:SFC <{
 		invoiceInfo: {cardId:String, encryptCode:String, publisherAppId:String}
 	}>):Void;
 
+	// 生物认证
 	static function startSoterAuthentication(obj:SFC<{
 		authMode: String,
 		resultJSON: String,
@@ -96,12 +86,7 @@ extern class WX {
 		checkAuthMode: AuthModes,
 	}):Void;
 
-	static function getWeRunData(obj:SFC<{encryptedData:String, iv:String}>):Void;
-
-	//// Devices
-
-	static function onMemoryWarning(callb: {level:Int}->Void):Void;
-
+	// 设备-扫码
 	static function scanCode(obj:SFC<{
 		result: String,
 		scanType: ScanTypeOut,
@@ -116,6 +101,55 @@ extern class WX {
 	//// 第三方平台
 	static function getExtConfigSync():{extConfig:Dynamic};
 	static function getExtConfig(obj:SFC<{extConfig:Dynamic}>):Void;
+#end
+	// 登录
+	static function login(obj:SFC<{code:String}> & {?timeout:Float}):Void;
+
+	static function checkSession(obj:SFC<ErrMsg>):Void;
+
+	// 小程序跳转
+	static function navigateToMiniProgram(obj:SFC<ErrMsg> & {
+		appId: String,
+		?path: String,
+		?extraData: QueryData,
+		?envVersion: EnvVersion,
+	}):Void;
+
+	// 用户信息
+	static function getUserInfo(obj:SFC<{
+		userInfo: UserInfo,
+		rawData: String,
+		signature: String,
+		encryptedData: String,
+		iv: String,
+		errMsg:String,
+	}> & {
+		?withCredentials: Bool,
+		?lang: Lang,
+	}):Void;
+
+	// 授权
+	static function authorize(obj:SFC<ErrMsg> & {scope:String}):Void;
+
+	// 设置
+	static function openSetting(obj:SFC<{authSetting:haxe.DynamicAccess<Bool>}>):Void;
+
+	static function getSetting(obj:SFC<{authSetting:haxe.DynamicAccess<Bool>}>):Void;
+
+	// 卡券
+	static function openCard(obj:SFC<ErrMsg> & {cardList:Array<{cardId:String,code:String}>}):Void;
+
+	static function addCard(obj:SFC<{
+		cardList: Array<{code:String, cardId:String, cardExt:String, isSuccess:Bool}>
+	}> & {
+		cardList:Array <{cardId:String, cardExt:CardExt}>
+	}):Void;
+
+	// 运动数据
+	static function getWeRunData(obj:SFC<{encryptedData:String, iv:String}>):Void;
+
+	// 设备-性能
+	static function onMemoryWarning(callb: {level:Int}->Void):Void;
 }
 
 private enum abstract EnvVersion(String) {
@@ -164,22 +198,6 @@ private enum abstract ScanTypeOut(String) {
 	var CODE_25;
 }
 
-private enum abstract Lang(String) {
-	var en;
-	var zh_CN;
-	var zh_TW;
-}
-
-private typedef UserInfo = {
-	nickName: String,
-	avatarUrl: String,
-	gender: Int,
-	country: String,
-	province: String,
-	city: String,
-	language: Lang,
-}
-
 private typedef AccountInfo = {
 	miniProgram: {
 		appId: String
@@ -219,4 +237,60 @@ private typedef InvoiceTitle = {
 	telephone: String,
 	bankName: String,
 	bankAccount: String,
+}
+
+//// UserInfoButton
+
+private enum abstract ButtonType(String) {
+	var text;
+	var image;
+}
+
+private typedef ButtonStyle = {
+	left: Float,
+	top: Float,
+	width: Float,
+	height: Float,
+	backgroundColor: String,
+	borderColor: String,
+	borderWidth: String,
+	borderRadius: Float,
+	textAlign: Align,
+	fontSize: Float,
+	lineHeight: Float,
+}
+
+private typedef ButtonOptions = {
+	type: ButtonType,
+	?text: String,
+	?image: String,
+	style: ButtonStyle,
+}
+
+extern class UserInfoButton {
+	var type: ButtonType;
+	var text: String;
+	var image: String;
+	var style: ButtonStyle;
+	function show():Void;
+	function hide():Void;
+	function destroy():Void;
+	function onTap(callb: {
+		userInfo: UserInfo,
+		rawData: String,
+		signature: String,
+		encryptedData: String,
+		iv: String,
+	}->Void):Void;
+	function offTap(?callb: Function):Void;
+}
+
+//// OpenSettingButton
+extern class OpenSettingButton extends UserInfoButton {
+	override function onTap(callb: Function):Void;
+}
+
+typedef FeedbackButton = OpenSettingButton;
+extern class GameClubButton extends OpenSettingButton {
+	var icon: String; // "green", "white", "dark", "light";
 }

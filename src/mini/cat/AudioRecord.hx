@@ -25,7 +25,6 @@ extern class AudioRecord {
 	function onStart(callb: Function):Void;
 	function onResume(callb: Function):Void;
 	function onPause(callb: Function):Void;
-
 	function onStop(callb: {tempFilePath:String}->Void):Void;
 	function onFrameRecorded(callb:{frameBuffer:js.lib.ArrayBuffer,isLastFrame:Bool}->Void):Void;
 	function onError(callb: ErrMsg->Void):Void;

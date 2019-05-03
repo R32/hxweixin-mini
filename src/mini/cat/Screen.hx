@@ -11,7 +11,19 @@ extern class Screen {
 
 	static function setKeepScreenOn(obj:SFC<ErrMsg> & {keepScreenOn:Bool}):Void;
 
-	static function onUserCaptureScreen(callb:haxe.Constraints.Function):Void;
-
 	static function getScreenBrightness(obj:SFC<{value:Float}>):Void;
+
+#if mini_game
+	static function onDeviceOrientationChange(callb: {value:Orientation}->Void):Void;
+
+	static function offDeviceOrientationChange(?callb:haxe.Constraints.Function):Void;
+#else
+	static function onUserCaptureScreen(callb:haxe.Constraints.Function):Void;
+#end
+}
+
+private enum abstract Orientation(String) {
+	var portrait;
+	var landscape;
+	var landscapeReverse;
 }

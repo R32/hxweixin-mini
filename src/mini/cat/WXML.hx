@@ -5,6 +5,7 @@ import mini.Data;
 /**
  https://developers.weixin.qq.com/miniprogram/dev/api/wx.createSelectorQuery.html
 */
+@:require(!mini_game)
 @:native("wx")
 extern class WXML {
 	static function createSelectorQuery():SelectorQuery;

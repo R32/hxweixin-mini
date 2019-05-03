@@ -28,9 +28,11 @@ extern class Video {
 
 	function stop():Void;
 
+	@:native("createVideoContext") static function create(id:String, ?thiz:Dynamic): Video;
+
+#if (!mini_game)
 	static function saveVideoToPhotosAlbum(obj:SFC<ErrMsg> & {
 		filePath: String, // 视频文件路径，可以是临时文件路径也可以是永久文件路径
 	}):Void;
-
-	@:native("createVideoContext") static function create(id:String, ?thiz:Dynamic): Video;
+#end
 }

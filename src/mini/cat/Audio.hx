@@ -5,7 +5,9 @@ import haxe.DynamicAccess;
 import haxe.Constraints.Function;
 
 /**
- https://developers.weixin.qq.com/miniprogram/dev/api/wx.stopVoice.html
+ miniprogram: https://developers.weixin.qq.com/miniprogram/dev/api/wx.stopVoice.html
+
+ minigame:    https://developers.weixin.qq.com/minigame/dev/api/wx.setInnerAudioOption.html
 */
 @:native("wx")
 extern class Audio {
@@ -18,13 +20,13 @@ extern class Audio {
 	static function getAvailableAudioSources(?obj:SFC<{audioSources:Array<AudioSource>}>):Void;
 
 	static function createInnerAudioContext():InnerAudioContext;
-
+#if (!mini_game)
 	static function createAudioContext(id:String, ?thiz:Dynamic):InnerAudioContext;
 
 	static function getBackgroundAudioManager():BackgroundAudioManager;
 
 	////////
-	#if keep_wx_deprecated
+  #if keep_wx_deprecated
 	static function stopVoice(?obj:SFC<ErrMsg>):Void;
 	static function pauseVoice(?obj:SFC<ErrMsg>):Void;
 	static function playVoice(?obj:SFC<ErrMsg> & {
@@ -50,7 +52,8 @@ extern class Audio {
 		downloadPercent: Float,
 		dataUrl: String,
 	}>):Void;
-	#end
+  #end
+#end
 }
 
 extern class BackgroundAudioManager {

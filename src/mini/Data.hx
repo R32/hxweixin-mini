@@ -5,10 +5,9 @@ package mini;
 WX.getSetting({
 	success: function(res){
 		if (res.authSetting[userInfo]) {
-
 		}
 	}
-})
+});
 ```
 */
 enum abstract AuthSetting(String) to String {
@@ -29,6 +28,12 @@ enum abstract ScreenDirection(Int) {
 	var NEG90 = -90;
 }
 
+enum abstract Align(String) {
+	var left;
+	var center;
+	var right;
+}
+
 enum abstract AudioSource(String) {
 	var auto;
 	var buildInMic;
@@ -43,6 +48,22 @@ enum abstract DeviceInterval(String) {
 	var game;
 	var ui;
 	var normal;
+}
+
+enum abstract Lang(String) {
+	var en;
+	var zh_CN;
+	var zh_TW;
+}
+
+typedef UserInfo = {
+	nickName: String,
+	avatarUrl: String,
+	gender: Int,
+	country: String,
+	province: String,
+	city: String,
+	language: Lang,
 }
 
 typedef P3D = {
@@ -108,7 +129,9 @@ typedef WeRunData = {
 }
 
 typedef AppLaunchOptions = {
+#if (!mini_game)
 	path: String,          // 启动小程序的路径
+#end
 	scene: Int,            // 启动小程序的场景值
 	query: QueryData,      // 启动小程序的 query 参数
 	shareTicket: String,   // 获取更多转发信息

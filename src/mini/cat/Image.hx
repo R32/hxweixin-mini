@@ -1,24 +1,19 @@
 package mini.cat;
 
 import mini.Data;
-import haxe.DynamicAccess;
 import haxe.Constraints.Function;
-
 /**
  https://developers.weixin.qq.com/miniprogram/dev/api/wx.saveImageToPhotosAlbum.html
 */
 @:native("wx")
 extern class Image {
-
-	static function saveImageToPhotosAlbum(obj:SFC<ErrMsg> & {
-		filePath: String, // 图片文件路径，可以是临时文件路径或永久文件路径，不支持网络图片路径
-	}):Void;
-
-	static function previewImage(obj:SFC<ErrMsg> & {
-		urls: Array<String>,
-		?current: String,
-	}):Void;
-
+#if mini_game
+	var src: String;
+	var width: Int;
+	var height: Int;
+	var onload: Function;
+	var onerror: Function;
+#else
 	static function getImageInfo(obj:SFC<{
 		width: Int,
 		height: Int,
@@ -34,6 +29,16 @@ extern class Image {
 	}> & {
 		src: String,
 		?quality: Int,   // default is 80
+	}):Void;
+#end
+
+	static function saveImageToPhotosAlbum(obj:SFC<ErrMsg> & {
+		filePath: String, // 图片文件路径，可以是临时文件路径或永久文件路径，不支持网络图片路径
+	}):Void;
+
+	static function previewImage(obj:SFC<ErrMsg> & {
+		urls: Array<String>,
+		?current: String,
 	}):Void;
 }
 

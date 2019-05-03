@@ -6,6 +6,7 @@ import mini.Data;
  https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html
 */
 @:dce
+@:require(!mini_game)
 class Page {
 
 	var route(default,never):String;

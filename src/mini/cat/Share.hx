@@ -3,7 +3,9 @@ package mini.cat;
 import mini.Data;
 
 /**
- https://developers.weixin.qq.com/miniprogram/dev/api/wx.updateShareMenu.html
+ program: https://developers.weixin.qq.com/miniprogram/dev/api/wx.updateShareMenu.html
+
+ game:    https://developers.weixin.qq.com/minigame/dev/api/wx.updateShareMenu.html
 */
 @:native("wx")
 extern class Share {
@@ -29,8 +31,23 @@ extern class Share {
 		shareTicket: String,
 		?timeout: Float,
 	}):Void;
+
+#if mini_game
+	static function shareAppMessage(opt: ShareMsg):Void;
+
+	static function onShareAppMessage(callb: ShareMsg->Void):Void;
+
+	static function offShareAppMessage(?callb: ()->Void):Void;
+#end
 }
 
 private typedef TemplateInfo = {
 	parameterList: Array<{name:String, value:String}>,
+}
+
+private typedef ShareMsg = {
+	?title: String,
+	?imageUrl: String,
+	?query: String,
+	?imageUrlId: String,
 }

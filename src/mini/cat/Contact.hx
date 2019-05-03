@@ -2,6 +2,7 @@ package mini.cat;
 
 import mini.Data;
 
+@:require(!mini_game)
 @:native("wx")
 extern class Contact {
 	static function addPhoneContact(obj:SFC<ErrMsg> & ContactInfo):Void;

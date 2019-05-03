@@ -6,6 +6,7 @@ import haxe.Constraints.Function;
 /**
  https://developers.weixin.qq.com/miniprogram/dev/api/wx.stopLocalServiceDiscovery.html
 */
+@:require(!mini_game)
 @:native("wx")
 extern class DNS {
 	// 停止搜索 mDNS 服务

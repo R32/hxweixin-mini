@@ -5,6 +5,7 @@ import mini.Data;
 /**
  https://developers.weixin.qq.com/miniprogram/dev/api/wx.createMapContext.html
 */
+@:require(!mini_game)
 @:native("wx")
 extern class Map {
 

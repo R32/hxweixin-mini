@@ -1,9 +1,11 @@
 package mini.cat;
 
 import mini.Data;
-
+import haxe.Constraints.Function;
 /**
- https://developers.weixin.qq.com/miniprogram/dev/api/wx.showToast.html
+ program: https://developers.weixin.qq.com/miniprogram/dev/api/wx.showToast.html
+
+ game:    https://developers.weixin.qq.com/minigame/dev/api/wx.showToast.html
 */
 @:native("wx")
 extern class UI {
@@ -41,8 +43,36 @@ extern class UI {
 
 	static function hideLoading(?obj:SFC<ErrMsg>):Void;
 
-	// Navigation bar
+	// window
+	static function onWindowResize(callb: WindowResize->Void):Void;
+	static function offWindowResize(?callb: Function):Void;
 
+	// menu
+	static function getMenuButtonBoundingClientRect():Rect;
+#if mini_game
+	static function setMenuStyle(obj:SFC<ErrMsg> & {style:DarkLight}):Void;
+
+	// status bar
+	static function setStatusBarStyle(obj:SFC<ErrMsg> & {style:BlackWhite}):Void;
+
+	// keyboard
+	static function updateKeyboard(obj:SFC<ErrMsg> & {value:String}):Void;
+	static function showKeyboard(obj:SFC<ErrMsg> & {
+		defaultValue: String,
+		maxLength: Int,
+		multiple: Bool,
+		confirmHold: Bool,
+		confirmType: KeyboardConfirmType,
+	}):Void;
+	static function onKeyboardInput(callb: {value:Dynamic}->Void):Void;
+	static function onKeyboardConfirm(callb: {value:String}->Void):Void;
+	static function onKeyboardComplete(callb: {value:String}->Void):Void;
+	static function offKeyboardInput(?callb: Function):Void;
+	static function offKeyboardConfirm(?callb: Function):Void;
+	static function offKeyboardComplete(?callb: Function):Void;
+	static function hideKeyboard(?obj:SFC<ErrMsg>):Void;
+#else
+	// Navigation bar
 	static function showNavigationBarLoading(?obj:SFC<ErrMsg>):Void;
 
 	static function setNavigationBarTitle(obj:SFC<ErrMsg> & {
@@ -61,9 +91,8 @@ extern class UI {
 	static function hideNavigationBarLoading(?obj:SFC<ErrMsg>):Void;
 
 	// Background
-
 	static function setBackgroundTextStyle(obj:SFC<ErrMsg> & {
-		textStyle: BackgroundTextStyle
+		textStyle: DarkLight
 	}):Void;
 
 	static function setBackgroundColor(obj:SFC<ErrMsg> & {
@@ -73,7 +102,6 @@ extern class UI {
 	}):Void;
 
 	// Tab bar
-
 	static function showTabBarRedDot(obj:SFC<ErrMsg> & {
 		index: Int,
 	}):Void;
@@ -86,7 +114,7 @@ extern class UI {
 		color: String,
 		selectedColor: String,
 		backgroundColor: String,
-		borderStyle: TabBorderStyle,
+		borderStyle: BlackWhite,
 	}):Void;
 
 	static function setTabBarItem(obj:SFC<ErrMsg> & {
@@ -142,13 +170,6 @@ extern class UI {
 	// custom component
 	static function nextTick(callb: ()->Void):Void;
 
-	// menu
-	static function getMenuButtonBoundingClientRect():Rect;
-
-	// windows
-	static function onWindowResize(callb: WindowResize->Void):Void;
-	static function offWindowResize(?callb: haxe.Constraints.Function):Void;
-
 	// File
 	static function chooseMessageFile(obj:SFC<{
 		tempFiles: Array<{
@@ -164,15 +185,6 @@ extern class UI {
 		?extension: Array<String>,
 	}):Void;
 
-	static function chooseImage(?obj:SFC<{
-		tempFilePaths: Array<String>,
-		tempFiles: Array<{path:String, size:Int}>,
-	}> & {
-		?count: Int,
-		?sizeType: Array<ImageSizeType>,
-		?sourceType: Array<MediaSourceType>,
-	}):Void;
-
 	static function chooseVideo(?obj:SFC<{
 		tempFilePath: String,
 		duration: Float,
@@ -185,8 +197,16 @@ extern class UI {
 		?camera: CameraFrom,
 		?sourceType: Array<MediaSourceType>,
 	}):Void;
+#end
 
-
+	static function chooseImage(?obj:SFC<{
+		tempFilePaths: Array<String>,
+		tempFiles: Array<{path:String, size:Int}>,
+	}> & {
+		?count: Int,
+		?sizeType: Array<ImageSizeType>,
+		?sourceType: Array<MediaSourceType>,
+	}):Void;
 }
 
 private enum abstract ToastIcon(String) {
@@ -195,6 +215,13 @@ private enum abstract ToastIcon(String) {
 	var none;
 }
 
+private enum abstract KeyboardConfirmType(String) {
+	var done;
+	var next;
+	var search;
+	var go;
+	var send;
+}
 private enum abstract NavTimingFunc(String) {
 	var linear;
 	var easeIn;
@@ -202,12 +229,12 @@ private enum abstract NavTimingFunc(String) {
 	var easeInOut;
 }
 
-private enum abstract BackgroundTextStyle(String) {
+private enum abstract DarkLight(String) {
 	var dark;
 	var light;
 }
 
-private enum abstract TabBorderStyle(String) {
+private enum abstract BlackWhite(String) {
 	var black;
 	var white;
 }

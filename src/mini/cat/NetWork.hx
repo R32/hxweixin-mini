@@ -14,7 +14,6 @@ extern class NetWork {
 
 }
 
-
 enum abstract NetworkType(String) {
 	var wifi;
 	var _2g = "2g";

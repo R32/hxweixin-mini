@@ -3,4 +3,5 @@
 -D keep-wx-deprecated
 -D analyzer-optimize
 -D old-error-format
+-D mini-game
 -js bin/app.js

@@ -6,6 +6,7 @@ import mini.Data;
  https://developers.weixin.qq.com/miniprogram/dev/reference/api/App.html
 */
 @:dce
+@:require(!mini_game)
 class App {
 
 	macro static public function make(opt: ExprOf<Options>, ?custom) {
