@@ -1,11 +1,13 @@
 # extern definitions for weixin(wechat) mini-program
 
 
-### Status
+## Status
 
-#### 小程序(mini-program)
+小程序文档: <https://developers.weixin.qq.com/miniprogram/dev/index.html>
 
-docs: <https://developers.weixin.qq.com/miniprogram/dev/index.html>
+小游戏文档: <https://developers.weixin.qq.com/minigame/dev/index.html>
+
+##### 小程序(mini-program)  API List
 
 - [x] 基础
   ```haxe
@@ -16,12 +18,10 @@ docs: <https://developers.weixin.qq.com/miniprogram/dev/index.html>
   import mini.cat.UpdateManager;
   mini.WX.canIUse()
   ```
-
 - [x] 路由
   ```haxe
   import mini.cat.Navigator;
   ```
-
 - [x] 界面
   ```haxe
   import mini.cat.UI;            // 交互, 导航栏, 背景 ...
@@ -30,19 +30,16 @@ docs: <https://developers.weixin.qq.com/miniprogram/dev/index.html>
   mini.cat.UI.chooseImage()      // 原属于: 媒体-图片
   mini.cat.UI.chooseVideo()      // 原属于: 媒体-视频
   ```
-
 - [x] 网络
   ```haxe
   import mini.cat.Web;           // request, uploadFile, downloadFile,
   import mini.cat.DNS;
   import mini.cat.WebSocket;
   ```
-
 - [x] 本地存储
   ```haxe
   import mini.cat.Storage;
   ```
-
 - [x] 媒体
   ```haxe
   import mini.cat.Map;
@@ -53,32 +50,26 @@ docs: <https://developers.weixin.qq.com/miniprogram/dev/index.html>
   import mini.cat.Live;         // 实时音视
   import mini.cat.Camera;
   ```
-
 - [x] 位置
   ```haxe
   import mini.cat.Location;
   ```
-
 - [x] 转发
   ```haxe
   import mini.cat.Share;
   ```
-
 - [x] 画布
   ```haxe
   import mini.cat.Canvas;
   ```
-
 - [x] 文件
   ```haxe
   import mini.cat.File;
   ```
-
 - [x] 开放接口
   ```haxe
   import mini.WX;
   ```
-
 - [x] 设备
   ```haxe
   import mini.cat.IBeacon;
@@ -100,32 +91,28 @@ docs: <https://developers.weixin.qq.com/miniprogram/dev/index.html>
   mini.WX.onMemoryWarning()     // 内存警告监听
   mini.WX.scanCode()            // 扫码
   ```
-
 - [x] Worker
   ```haxe
   import mini.cat.Worker;
   ```
-
-
 - [x] 第三方平台
   ```haxe
   mini.WX.getExtConfigSync()
   mini.WX.getExtConfig()
   ```
-
 - [x] WXML
   ```haxe
   import mini.cat.WXML;
   ```
-
 - [x] 广告
   ```haxe
   import mini.cat.Ad;
   ```
 
-#### 小游戏(mini-game)
+<br />
+<br />
 
-docs: <https://developers.weixin.qq.com/minigame/dev/index.html>
+##### 小游戏(mini-game) API List
 
 **require**: `-D mini-game`
 
@@ -140,46 +127,38 @@ docs: <https://developers.weixin.qq.com/minigame/dev/index.html>
   import mini.game.Performance;  // 性能时间戳
   import mini.game.Res;          // 分包加载
   ```
-
 - [x] 渲染
   ```haxe
   import mini.cat.Canvas;        // 画布
   import mini.cat.Timer;         // setPreferredFramesPerSecond, requestAnimationFrame,
-  import mini.game.Res;          // 字体, 图片
+  import mini.game.Res;          // loadFont, getTextLineHeight, createImage
   ```
-
 - [x] 广告
   ```haxe
   import mini.cat.Ad;
   ```
-
 - [x] 界面
   ```haxe
   import mini.cat.UI;            // 交互, 键盘 ...
   mini.cat.UI.chooseImage()      // 原属于: 媒体-图片
   ```
-
 - [x] 网络
   ```haxe
   import mini.cat.Web;           // request, uploadFile, downloadFile,
   import mini.cat.WebSocket;
   ```
-
 - [x] 转发
   ```haxe
   import mini.cat.Share;
   ```
-
 - [x] 虚拟支付
   ```haxe
   import mini.game.Payment;
   ```
-
 - [x] 本地存储
   ```haxe
   import mini.cat.Storage;
   ```
-
 - [x] 媒体
   ```haxe
   import mini.cat.Audio;        // 音频
@@ -187,28 +166,23 @@ docs: <https://developers.weixin.qq.com/minigame/dev/index.html>
   import mini.cat.AudioRecord;  // 录音
   import mini.cat.Video;        // 视频
   ```
-
 - [x] 位置
   ```haxe
   import mini.cat.Location;
   ```
-
 - [x] 文件
   ```haxe
   import mini.cat.File;
   ```
-
 - [x] 开放接口
   ```haxe
   import mini.WX;
   import mini.game.OpenDataContext;
   ```
-
 - [x] Worker
   ```haxe
   import mini.cat.Worker;
   ```
-
 - [x] 设备
   ```haxe
   import mini.cat.Battery;      // 电量
