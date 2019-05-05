@@ -7,6 +7,7 @@ import haxe.Constraints.Function;
  program: https://developers.weixin.qq.com/miniprogram/dev/api/CanvasContext.html
  game:    https://developers.weixin.qq.com/minigame/dev/api/wx.createCanvas.html
 */
+@:native("wx")
 extern class Canvas {
 #if mini_game
 	var width: Int;

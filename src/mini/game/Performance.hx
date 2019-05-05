@@ -12,5 +12,5 @@ extern class Performance {
 
 	static function triggerGC():Void;
 
-	static function getPerformance():Performance;
+	@:native("getPerformance") static function get():Performance;
 }
