@@ -8,6 +8,10 @@ import haxe.Constraints.Function;
 @:native("wx")
 extern class WX {
 
+	static final env: {
+		final USER_DATA_PATH: String;
+	}
+
 #if mini_game
 	// 用户信息 2
 	static function createUserInfoButton(opt:ButtonOptions & {withCredentials:Bool, ?lang:Lang}):UserInfoButton;
