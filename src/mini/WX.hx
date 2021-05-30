@@ -136,9 +136,9 @@ extern class WX {
 	static function authorize(obj:SFC<ErrMsg> & {scope:String}):Void;
 
 	// 设置
-	static function openSetting(obj:SFC<{authSetting:haxe.DynamicAccess<Bool>}>):Void;
+	static function openSetting(obj:SFC<{authSetting:DataObject<Bool>}>):Void;
 
-	static function getSetting(obj:SFC<{authSetting:haxe.DynamicAccess<Bool>}>):Void;
+	static function getSetting(obj:SFC<{authSetting:DataObject<Bool>}>):Void;
 
 	// 卡券
 	static function openCard(obj:SFC<ErrMsg> & {cardList:Array<{cardId:String,code:String}>}):Void;

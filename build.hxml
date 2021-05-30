@@ -1,7 +1,23 @@
 -cp src
--main test.WxMini
--D keep-wx-deprecated
+--dce full
 -D analyzer-optimize
 -D old-error-format
+
+--macro exclude('haxe.iterators.ArrayIterator')
+
+--each
+--main test.PageApp
+--js bin/app.js
+
+--next
+--main test.PageIndex
+--js bin/page.js
+
+--next
 -D mini-game
--js bin/app.js
+--main test.WxMini
+--js bin/all_game.js
+
+--next
+--main test.WxMini
+--js bin/all_prog.js

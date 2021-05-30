@@ -52,7 +52,7 @@ extern class FileSystemManager {
 
 	function rmdir(obj:SFC<ErrMsg> & {dirPath:String, ?recursive:Bool}):Void;
 
-	// .stats is EithType<FileStat, haxe.DynamicAccess<FileStat>
+	// .stats is EithType<FileStat, Dynamic<FileStat>
 	function stat(obj:SFC<{stats:Dynamic}> & {path:String, ?recursive:Bool}):Void;
 
 	function unlink(obj:SFC<ErrMsg> & {filePath:String}):Void;

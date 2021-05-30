@@ -216,33 +216,6 @@ Navigator.navigateTo("path/to");
 wx.navigateTo("path/to");
 ```
 
-对于 `App.make(cfg, custom)` 和 `Page.make(cfg, custom)`
-
-  * 第一个参数 `cfg`: 为文档所规定的字段, 用于检测是否存在有 typo 之类的错误
-  * 第二个参数 `custom`: 所有自定义的字段必须放于此处, (可选)
-  * 限制: 参数如果有值则必须是字面量对象, 不可以是变量.
-
-编译时将会自动合并 `cfg` 和 `custom` 例如:
-
-```haxe
-App.make({
-    onLaunch: function(d) {},
-    onShow: function(d) {}
-}, {
-    globalData: "..."
-});
-```
-
-将输出:
-
-```js
-App({
-    onLaunch: function(d) {},
-    onShow: function(d) {},
-    globalData: "..."
-})
-```
-
 ### Dependencies
 
 * [haxe](https://github.com/HaxeFoundation/haxe)

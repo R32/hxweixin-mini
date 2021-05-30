@@ -1,7 +1,6 @@
 package mini.cat;
 
 import mini.Data;
-import haxe.DynamicAccess;
 import haxe.Constraints.Function;
 
 private typedef FloatOrString = haxe.extern.EitherType<Float,String>;

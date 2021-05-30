@@ -10,6 +10,12 @@ WX.getSetting({
 });
 ```
 */
+extern abstract DataObject<T>(Dynamic<T>) from Dynamic<T> to Dynamic<T> {
+	inline function new() this = {};
+	@:arrayAccess @:resolve private inline function get( k : String ) : T return untyped this[k];
+	@:arrayAccess @:resolve private inline function set( k : String, v : T ) : T return untyped this[k] = v;
+}
+
 enum abstract AuthSetting(String) to String {
 	var userInfo = "scope.userInfo";
 	var userLocation = "scope.userLocation";
@@ -72,10 +78,10 @@ typedef P3D = {
 	z:Float,
 }
 
-typedef QueryData = haxe.DynamicAccess<String>;
-typedef KeyValue = haxe.DynamicAccess<Any>;
+typedef QueryData = DataObject<String>;
+typedef KeyValue = DataObject<Any>;
 
-// FileSystemManager.stat() => EithType<FileStat, haxe.DynamicAccess<FileStat>
+// FileSystemManager.stat() => EithType<FileStat, DataObject<FileStat>
 typedef FileStat = {
 	mode: String,
 	size: Int,

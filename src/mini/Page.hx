@@ -5,26 +5,29 @@ import mini.Data;
 /**
  https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html
 */
-@:dce
 @:require(!mini_game)
-class Page {
+@:native("Page")
+extern class Page {
 
-	var route(default,never):String;
+	var route(default,never) : String;
 
-	extern function setData(d:Dynamic, ?callb:()->Void);
+	var setData(default, never) : ( data : DataObject<Any>, ?callback : ()->Void )->Void;
 
-	macro static public function make(opt: ExprOf<Options>, ?custom) {
-		var type = mini.Macros.getPrivateType("mini.Page", "Options");
-		var anon = mini.Macros.mergeAnon(type, opt, custom);
-		return macro js.Syntax.code("Page({0})", $anon);
-	}
+	var customData : Dynamic;
 
-	macro static public function getCurrentPages() return macro js.Syntax.code("getCurrentPages()");
+	@:selfCall public function new( opt : Options );
 }
 
+@:native("getCurrentPages") extern function getCurrentPages() : Page;
+
 private typedef Options = {
+
 	//
-	?data: Dynamic,
+	?data : DataObject<Any>,
+
+	?options : DataObject<Any>,
+
+	?customData : Dynamic,
 
 	// 页面加载时触发。一个页面只会调用一次，可以在 onLoad 的参数中获取打开当前页面路径中的 query 参数。
 	?onLoad: QueryData->Void,

@@ -4,7 +4,7 @@ import mini.App;
 import mini.Page;
 import mini.WX;
 import mini.Data;
-import mini.cat.Debug;
+// import mini.cat.Debug;
 import mini.cat.AppEvent;
 import mini.cat.SystemInfo;
 import mini.cat.Timer;
@@ -168,7 +168,7 @@ class WxMini {
 			trace(obj);
 		});
 	#else
-		App.make({
+		new App({
 			onLaunch: function(opt) {
 				WX.getSetting({
 					success: function(res){
@@ -184,25 +184,23 @@ class WxMini {
 			onPageNotFound: function(opt) {
 				trace(opt.path);
 			},
-		}, {
-			globalData: {
+			customData: {
 				userInfo: null,
 			},
 		});
-
-		Page.getCurrentPages();
-		Page.make({
+		getCurrentPages();
+		new Page({
 			data: {
 				a: 1,
 				b: 2,
 				appear: false,
 			},
-			onShareAppMessage: function(obj){
+			onShareAppMessage: function(obj) {
 				return {
 					title: "...."
 				}
 			},
-			onLoad: function(){
+			onLoad: function(data) {
 				var obs = WXML.createIntersectionObserver(js.Lib.nativeThis);
 				obs.relativeTo(".parent").observe(".tarelem", function(res){
 					js.Lib.nativeThis.data.appear = res.intersectionRatio > 0;
