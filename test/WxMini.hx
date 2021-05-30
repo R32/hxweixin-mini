@@ -57,7 +57,7 @@ import mini.game.OpenDataContext;
 class WxMini {
 
 	public static function main() {
-		Timer.setTimeout(function(){
+		setTimeout(function(){
 			trace("setTimeout");
 		}, 300);
 

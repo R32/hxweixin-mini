@@ -4,17 +4,19 @@ import mini.Data;
 import haxe.Constraints.Function;
 import haxe.extern.Rest;
 
-@:native("")
+@:native("wx")
 extern class Timer {
 #if mini_game
-	@:native("wx.setPreferredFramesPerSecond")
-	static function setPreferredFramesPerSecond(fps:Int):Void;
-	static function requestAnimationFrame(callback: Float -> Void): Int;
-	static function cancelAnimationFrame(handle: Int): Void;
+	static function setPreferredFramesPerSecond( fps : Int ) : Void;
 #end
-	static function setTimeout(callback: Function, delay: Float, rest: Rest<Dynamic>): Int;
-	static function clearTimeout(handle: Int): Void;
-
-	static function setInterval(callback: Function, delay: Float, rest: Rest<Dynamic>): Int;
-	static function clearInterval(handle: Int): Void;
 }
+
+#if mini_game
+@:native("requestAnimationFrame") extern function requestAnimationFrame( callback: Float -> Void ) : Int;
+@:native("cancelAnimationFrame") extern function cancelAnimationFrame( handle : Int ) : Void;
+#end
+
+@:native("setInterval") extern function setInterval( callback : Function, delay : Float, rest : Rest<Dynamic> ) : Int;
+@:native("setTimeout") extern function setTimeout( callback : Function, delay: Float, rest : Rest<Dynamic>) : Int;
+@:native("clearInterval") extern function clearInterval( handle : Int ) : Void;
+@:native("clearTimeout") extern function clearTimeout( handle : Int ) : Void;
