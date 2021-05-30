@@ -3,8 +3,8 @@
     "url": "https://github.com/r32/hxweixin-mini",
     "description": "extern definitions for weixin(wechat) mini-program",
     "license": "MIT",
-    "version": "0.1.0",
-    "releasenote": "init",
+    "version": "0.1.1",
+    "releasenote": "Cleanup",
     "classPath": "src",
     "contributors": ["r32"],
     "tags": ["wechat", "weixin", "extern"]
