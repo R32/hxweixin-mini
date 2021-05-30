@@ -9,7 +9,9 @@ import mini.Data;
 @:native("Page")
 extern class Page {
 
-	var route(default,never) : String;
+	var data : DataObject<Any>; // Null?
+
+	var route(default, never) : String;
 
 	var setData(default, never) : ( data : DataObject<Any>, ?callback : ()->Void )->Void;
 
@@ -75,10 +77,21 @@ private typedef Options = {
 		target: Dynamic,
 		webViewUrl: String,
 	})->{                    // 此事件处理函数需要 return 一个 Object，用于自定义转发内容，返回内容如下：
-		?title: String,        // 转发标题, 默认为当前小程序名称
-		?path: String,         // 转发路径, 默认为当前页面 path ，必须是以 / 开头的完整路径
+		?title: String,      // 转发标题, 默认为当前小程序名称
+		?path: String,       // 转发路径, 默认为当前页面 path ，必须是以 / 开头的完整路径
 		?imageUrl: String,
+		?promise: js.lib.Promise<Any>
 	},
+
+	/**
+	* 当转发到朋友圈, 安卓 7.0.15 版本起支持，暂只在安卓平台支持
+	*/
+	?onShareTimeline : ()->{?title: String, ?query: QueryData, ?imageUrl: String},
+
+	/**
+	* 当用户点击右上角菜单“收藏”按钮的行为, 安卓 7.0.15 版本起支持，暂只在安卓平台支持
+	*/
+	?onAddToFavorites : {webViewUrl:String}->{?title: String, ?query: QueryData, ?imageUrl: String},
 
 	/**
 	 小程序屏幕旋转时触发。

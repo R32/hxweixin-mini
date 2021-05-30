@@ -4,7 +4,7 @@ import mini.App;
 import mini.Page;
 import mini.WX;
 import mini.Data;
-// import mini.cat.Debug;
+import mini.cat.Debug;
 import mini.cat.AppEvent;
 import mini.cat.SystemInfo;
 import mini.cat.Timer;
